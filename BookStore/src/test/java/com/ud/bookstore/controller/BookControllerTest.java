@@ -3,7 +3,6 @@ package com.ud.bookstore.controller;
 import com.ud.bookstore.model.BookDTO;
 import com.ud.bookstore.service.BookService;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,12 +87,10 @@ class BookControllerTest {
                 .andExpect(content().string("New Book added with BookID: 4"));
     }
 
-    @Disabled
     @Test
     void updateBook() {
     }
 
-    @Disabled
     @Test
     void deleteBook() {
     }

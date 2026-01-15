@@ -63,14 +63,14 @@ public class BookController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<BookDTO> updateBook(@RequestBody() @Valid BookDTO book) {
-        BookDTO bookDto = bookService.updateBook(book);
-        return ResponseEntity.ok(bookDto);
+    public ResponseEntity<String> updateBook(@RequestBody() @Valid BookDTO book) {
+        bookService.updateBook(book);
+        return ResponseEntity.ok("Book updated.");
     }
 
     @DeleteMapping("/delete/{bookId}")
     public ResponseEntity<String> deleteBook(@PathVariable String bookId) {
         bookService.deleteBook(bookId);
-        return new ResponseEntity<>("Book deleted", HttpStatus.OK);
+        return ResponseEntity.ok("Book deleted");
     }
 }

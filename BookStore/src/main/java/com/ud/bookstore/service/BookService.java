@@ -12,7 +12,7 @@ public interface BookService {
 
     public BookDTO addBook(BookDTO bookDTO);
 
-    public BookDTO updateBook(BookDTO bookDTO);
+    public void updateBook(BookDTO bookDTO);
 
     public void deleteBook(String BookId);
 }

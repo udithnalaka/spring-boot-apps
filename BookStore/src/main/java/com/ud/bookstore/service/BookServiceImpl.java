@@ -43,10 +43,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDTO updateBook(BookDTO bookDTO) {
+    public void updateBook(BookDTO bookDTO) {
 
-        Optional<Book> updatedBook = bookRepository.updateBookNameByBookId(bookDTO.getBookId(), bookDTO.getBookName());
-        return updatedBook.map(BookMapper::toDto).orElse(null);
+        Optional<Integer> updatedCount = bookRepository.updateBookNameByBookId(bookDTO.getBookId(), bookDTO.getBookName());
+
     }
 
     @Override

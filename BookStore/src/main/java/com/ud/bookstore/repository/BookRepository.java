@@ -17,7 +17,7 @@ public interface BookRepository extends MongoRepository<Book, String> {
 
     @Query(value = "{'bookId' : { $eq : ?0 }}")
     @Update(pipeline = {" { '$set' :  {'bookName' :  ?1 } } "})
-    Optional<Book> updateBookNameByBookId(String bookId, String bookName);
+    Optional<Integer> updateBookNameByBookId(String bookId, String bookName);
 
     @DeleteQuery
     void deleteBookByBookId(String bookId);
