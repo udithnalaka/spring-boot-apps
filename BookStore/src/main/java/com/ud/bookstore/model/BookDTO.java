@@ -1,7 +1,7 @@
 package com.ud.bookstore.model;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class BookDTO {
 
-    @NotNull(message = "Book ID  required")
+    @NotEmpty(message = "Book ID  required")
     private String bookId;
 
     @NotBlank(message = "Boon name required")
@@ -21,4 +21,8 @@ public class BookDTO {
 
     @NotBlank
     private String bookAuthor;
+
+    String price;
+
+    String description;
 }
