@@ -20,7 +20,7 @@ public class OrderDetailsController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<OrderDetailDto> getOrderDetails(@PathVariable Long productId) {
-
+        log.info("Product ID: {}", productId);
         return ResponseEntity.ok(asynFacade.getOrderDetails(productId));
     }
 }

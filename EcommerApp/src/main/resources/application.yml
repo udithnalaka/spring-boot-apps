@@ -1,3 +1,11 @@
 spring:
   application:
     name: Ecommerce App
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:ecommerce
+    driver-class-name: org.h2.Driver
+

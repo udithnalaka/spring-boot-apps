@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        log.info("Service call to fetch product id: {}", id);
+        log.info("Service call to fetch Product. product id: {}", id);
         OrderHelper.addDelay();
         return productRepository.findById(id).orElse(null);
     }
