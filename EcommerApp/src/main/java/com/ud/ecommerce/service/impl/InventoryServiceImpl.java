@@ -19,6 +19,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public Inventory getInventoryByProductId(Long productId) {
         log.info("Service call to fetch inventory. product id: {}", productId);
+        log.info("Thread name: {}", Thread.currentThread().getName());
         addDelay();
         return inventoryRepository.findByProductId(productId).orElse(null);
     }

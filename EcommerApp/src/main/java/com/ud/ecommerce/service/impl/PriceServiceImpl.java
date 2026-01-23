@@ -19,6 +19,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public Price getPriceByProductId(Long productId) {
         log.info("Service call to fetch Price. product id: {}", productId);
+        log.info("Thread name: {}", Thread.currentThread().getName());
         addDelay();
         return priceRepository.findByProductId(productId).orElse(null);
     }

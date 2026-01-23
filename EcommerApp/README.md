@@ -47,3 +47,7 @@ If you manually switch to a different parent and actually want the inheritance, 
  * navigate to the endpoint to get product details - http://localhost:8080/api/v1/products/1
 
  ![img_1.png](img_1.png)
+
+## Multi threads running for the three separate services
+
+![img_2.png](img_2.png)
