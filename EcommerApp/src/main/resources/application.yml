@@ -1,11 +1,22 @@
 spring:
   application:
     name: Ecommerce App
-  h2:
-    console:
-      path: /h2-console
-      enabled: true
+#  h2:
+#    console:
+#      path: /h2-console
+#      enabled: true
   datasource:
-    url: jdbc:h2:mem:ecommerce
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
 

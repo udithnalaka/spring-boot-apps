@@ -29,8 +29,10 @@ public class Price {
 
     private double price;
 
+    @Column(name = "valid_from")
     private LocalDate validFrom;
 
+    @Column(name = "valid_to")
     private LocalDateTime validTo;
 
     private String status;
