@@ -41,8 +41,6 @@ Three Thread types are considered.
 
 below is a output from the benchmark results
 
-   ![img_2.png](img_2.png)
-
       ab -n 3000 -c 100 -m GET http://localhost:8080/report/virtual-thread/
 
       This is ApacheBench, Version 2.3 <$Revision: 1923142 $>
