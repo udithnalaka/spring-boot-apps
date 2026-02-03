@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: my-postgres
+    container_name: ecommerce-postgres
     environment:
       POSTGRES_DB: ecommerce
       POSTGRES_USER: postgres
@@ -20,10 +20,11 @@ services:
 
   app:
     build: .
+    container_name: ecommerce-app
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/ecommerce
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ecommerce
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
