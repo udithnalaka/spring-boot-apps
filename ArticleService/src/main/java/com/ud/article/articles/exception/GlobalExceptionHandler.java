@@ -1,4 +1,4 @@
-package com.ud.article.articles.service.exception;
+package com.ud.article.articles.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

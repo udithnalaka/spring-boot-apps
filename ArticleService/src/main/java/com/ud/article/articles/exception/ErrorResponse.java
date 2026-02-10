@@ -1,4 +1,4 @@
-package com.ud.article.articles.service.exception;
+package com.ud.article.articles.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
