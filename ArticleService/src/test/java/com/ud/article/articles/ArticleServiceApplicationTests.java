@@ -1,4 +1,4 @@
-package com.ud.article.ArticleService;
+package com.ud.article.articles;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

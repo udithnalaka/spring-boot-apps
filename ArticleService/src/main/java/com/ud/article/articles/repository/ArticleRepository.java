@@ -1,6 +1,6 @@
-package com.ud.article.ArticleService.repository;
+package com.ud.article.articles.repository;
 
-import com.ud.article.ArticleService.model.Article;
+import com.ud.article.articles.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

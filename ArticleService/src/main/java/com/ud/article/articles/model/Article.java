@@ -1,4 +1,4 @@
-package com.ud.article.ArticleService.model;
+package com.ud.article.articles.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

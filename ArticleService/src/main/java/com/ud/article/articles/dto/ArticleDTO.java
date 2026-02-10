@@ -1,4 +1,4 @@
-package com.ud.article.ArticleService.dto;
+package com.ud.article.articles.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

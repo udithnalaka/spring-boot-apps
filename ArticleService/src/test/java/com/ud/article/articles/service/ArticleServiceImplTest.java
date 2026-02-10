@@ -1,10 +1,10 @@
-package com.ud.article.ArticleService.service;
+package com.ud.article.articles.service;
 
-import com.ud.article.ArticleService.dto.ArticleDTO;
-import com.ud.article.ArticleService.dto.TagDTO;
-import com.ud.article.ArticleService.model.Article;
-import com.ud.article.ArticleService.model.Tag;
-import com.ud.article.ArticleService.repository.ArticleRepository;
+import com.ud.article.articles.dto.ArticleDTO;
+import com.ud.article.articles.dto.TagDTO;
+import com.ud.article.articles.model.Article;
+import com.ud.article.articles.model.Tag;
+import com.ud.article.articles.repository.ArticleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ArticleServiceTest {
+public class ArticleServiceImplTest {
 
     @Mock
     private ArticleRepository articleRepository;
@@ -45,7 +45,7 @@ public class ArticleServiceTest {
     private String blackListedWords;
 
     @InjectMocks
-    private ArticleService articleService;
+    private ArticleServiceImpl articleServiceImpl;
 
     @BeforeEach
     public void setUp() {
@@ -71,7 +71,7 @@ public class ArticleServiceTest {
 
         when(articleRepository.findById(1L)).thenReturn(Optional.of(sampleArticle));
 
-        ArticleDTO articleDto = articleService.findById(1L);
+        ArticleDTO articleDto = articleServiceImpl.getArticleById(1L);
 
         // Assert
         assertNotNull(articleDto);
@@ -88,7 +88,7 @@ public class ArticleServiceTest {
 
         when(articleRepository.findByTitle(title)).thenReturn(List.of(sampleArticle, sampleArticle));
 
-        List<ArticleDTO> articlesDto = articleService.findByTitle(title);
+        List<ArticleDTO> articlesDto = articleServiceImpl.getArticleByTitle(title);
 
         assertFalse(articlesDto.isEmpty());
         assertEquals(2, articlesDto.size());
@@ -100,7 +100,7 @@ public class ArticleServiceTest {
     @Test
     void shouldReturnNewArticleIdWhenSavingArticle() {
 
-        ReflectionTestUtils.setField(articleService, "blackListedWords", "banned_word1,banned_word2");
+        ReflectionTestUtils.setField(articleServiceImpl, "blackListedWords", "banned_word1,banned_word2");
 
         ArticleDTO articleDto = ArticleDTO.builder()
                 .title("test title 3")
@@ -135,7 +135,7 @@ public class ArticleServiceTest {
 
         when(articleRepository.save(any(Article.class))).thenReturn(savedArticle);
 
-        Long newArticleId = articleService.create(articleDto);
+        Long newArticleId = articleServiceImpl.saveArticle(articleDto);
 
         assertEquals(3L, newArticleId);
 
@@ -144,11 +144,11 @@ public class ArticleServiceTest {
     }
 
     @Test
-    void shouldUpdateArticleWithValidArticleId() {
+    void shouldUpdateArticleArticleWithValidArticleId() {
 
         //Given
         Long articleId = 3L;
-        ReflectionTestUtils.setField(articleService, "blackListedWords", "banned_word1,banned_word2");
+        ReflectionTestUtils.setField(articleServiceImpl, "blackListedWords", "banned_word1,banned_word2");
 
         ArticleDTO articleDto = ArticleDTO.builder()
                 .title("test title 3")
@@ -175,7 +175,7 @@ public class ArticleServiceTest {
         when(articleRepository.save(any(Article.class))).thenReturn(savedArticle);
 
         //When
-        Long updatedArticleId = articleService.update(articleId, articleDto);
+        Long updatedArticleId = articleServiceImpl.updateArticle(articleId, articleDto);
 
         // Then - Capture the argument passed to save()
         verify(articleRepository).save(articleCaptor.capture());
@@ -191,13 +191,13 @@ public class ArticleServiceTest {
     }
 
     @Test
-    void shouldDeleteArticleWithValidArticleId() {
+    void shouldDeleteArticleArticleWithValidArticleId() {
 
         //Given
         Long articleId = 1L;
 
         //When
-        articleService.delete(articleId);
+        articleServiceImpl.deleteArticle(articleId);
 
         //Then
         verify(articleRepository).deleteById(articleId);
