@@ -1,4 +1,4 @@
-package com.ud.article.ArticleService.config;
+package com.ud.article.articles.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

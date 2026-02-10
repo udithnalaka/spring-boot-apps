@@ -1,10 +1,11 @@
-package com.ud.article.ArticleService.service;
+package com.ud.article.articles.service;
 
 
-import com.ud.article.ArticleService.dto.ArticleDTO;
-import com.ud.article.ArticleService.model.Article;
-import com.ud.article.ArticleService.model.Tag;
-import com.ud.article.ArticleService.repository.ArticleRepository;
+import com.ud.article.articles.dto.ArticleDTO;
+import com.ud.article.articles.model.Article;
+import com.ud.article.articles.model.Tag;
+import com.ud.article.articles.repository.ArticleRepository;
+import com.ud.article.articles.service.exception.ArticleNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -18,21 +19,21 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @PropertySource("classpath:articles_blacklist.properties")
-public class ArticleService {
+public class ArticleServiceImpl implements ArticleService {
 
     //@Value("${app.black.listed.words}")
     private final String blackListedWords;
     private final ArticleRepository articleRepository;
     private final ModelMapper modelMapper;
 
-    public ArticleService(@Value("${app.black.listed.words}") String blackListedWords,
-                          ArticleRepository articleRepository, ModelMapper mapper) {
+    public ArticleServiceImpl(@Value("${app.black.listed.words}") String blackListedWords,
+                              ArticleRepository articleRepository, ModelMapper mapper) {
         this.articleRepository = articleRepository;
         this.modelMapper = mapper;
         this.blackListedWords = blackListedWords;
     }
 
-    public ArticleDTO findById(Long id) {
+    public ArticleDTO getArticleById(Long id) {
 
         log.info("get Article by ID: {}", id);
 
@@ -48,7 +49,7 @@ public class ArticleService {
         }
     }
 
-    public List<ArticleDTO> findByTitle(String title) {
+    public List<ArticleDTO> getArticleByTitle(String title) {
         log.info("get Articles by title: {}", title);
 
         return articleRepository.findByTitle(title)
@@ -58,7 +59,7 @@ public class ArticleService {
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Long create(ArticleDTO articleDTO) {
+    public Long saveArticle(ArticleDTO articleDTO) {
 
         //validation check
         checkForbiddenWords(articleDTO);
@@ -87,7 +88,7 @@ public class ArticleService {
     }
 
     @Transactional(Transactional.TxType.REQUIRED)
-    public Long update(Long id, ArticleDTO articleDTO) {
+    public Long updateArticle(Long id, ArticleDTO articleDTO) throws ArticleNotFoundException {
         //validation check
         checkForbiddenWords(articleDTO);
 
@@ -95,7 +96,7 @@ public class ArticleService {
 
         try {
             Article updateArticle = articleRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Article not found"));
+                    .orElseThrow(() -> new ArticleNotFoundException("Article not found"));
 
             updateArticle.setTitle(articleDTO.getTitle());
             updateArticle.setContent(articleDTO.getContent());
@@ -120,14 +121,14 @@ public class ArticleService {
 
     }
 
-    public void delete(Long id) {
+    public void deleteArticle(Long id) throws ArticleNotFoundException {
         log.info("deleting Article ID: {}", id);
 
         try {
             articleRepository.deleteById(id);
         } catch (Exception e) {
             log.error("Error when deleting Article from database. ", e);
-            throw e;
+            throw new ArticleNotFoundException("Article Not found");
         }
     }
 
