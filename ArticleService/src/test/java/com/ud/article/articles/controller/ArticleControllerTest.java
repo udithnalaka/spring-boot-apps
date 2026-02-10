@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ud.article.articles.dto.ArticleDTO;
 import com.ud.article.articles.dto.TagDTO;
 import com.ud.article.articles.service.ArticleServiceImpl;
-import com.ud.article.articles.service.exception.ArticleNotFoundException;
+import com.ud.article.articles.exception.ArticleNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

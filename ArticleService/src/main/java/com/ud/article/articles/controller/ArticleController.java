@@ -26,7 +26,7 @@ public class ArticleController {
     }
 
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleDTO> getOrderDetails(@PathVariable Long articleId) {
+    public ResponseEntity<ArticleDTO> getArticleById(@PathVariable Long articleId) {
         log.info("Article ID: {}", articleId);
         return ResponseEntity.ok(articleService.getArticleById(articleId));
     }

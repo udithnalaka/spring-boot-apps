@@ -1,4 +1,4 @@
-package com.ud.article.articles.service.exception;
+package com.ud.article.articles.exception;
 
 public class ArticleNotFoundException extends RuntimeException {
 

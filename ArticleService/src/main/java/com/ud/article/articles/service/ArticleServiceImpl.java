@@ -5,7 +5,7 @@ import com.ud.article.articles.dto.ArticleDTO;
 import com.ud.article.articles.model.Article;
 import com.ud.article.articles.model.Tag;
 import com.ud.article.articles.repository.ArticleRepository;
-import com.ud.article.articles.service.exception.ArticleNotFoundException;
+import com.ud.article.articles.exception.ArticleNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
