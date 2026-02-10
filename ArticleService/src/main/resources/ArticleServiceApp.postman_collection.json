@@ -1,0 +1,100 @@
+{
+  "info": {
+    "_postman_id": "",
+    "name": "ArticleServiceApp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "",
+    "_collection_link": ""
+  },
+  "item": [
+    {
+      "name": "ArticleServiceApp",
+      "item": [
+        {
+          "name": "get Article by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/article/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "article",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get Article by title",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/article/title/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "article",
+                "title",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "save article",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"test title 4\",\r\n    \"content\": \"test content 4\",\r\n    \"tags\": [\r\n        {\r\n            \"tag\": \"test tag 4-1\"\r\n        },\r\n         {\r\n            \"tag\": \"test tag 4-2\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/article/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "article",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete article",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
