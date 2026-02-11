@@ -35,7 +35,7 @@ public class ArticleServiceImplTest {
     private ArticleRepository articleRepository;
 
     @Spy
-    private ModelMapper mapper;
+    private ModelMapper modelMapper;
 
     @Captor
     private ArgumentCaptor<Article> articleCaptor;
