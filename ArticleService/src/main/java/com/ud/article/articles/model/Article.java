@@ -36,8 +36,4 @@ public class Article {
     @JoinColumn(name = "article_id")
     private List<Tag> tags = new ArrayList<>();
 
-    public void addTag(Tag tag) {
-        tags.add(tag);
-    }
-
 }

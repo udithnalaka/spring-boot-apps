@@ -9,6 +9,7 @@ import com.ud.article.articles.exception.ArticleNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,9 @@ public class ArticleServiceImpl implements ArticleService {
     private final ModelMapper modelMapper;
 
     public ArticleServiceImpl(@Value("${app.black.listed.words}") String blackListedWords,
-                              ArticleRepository articleRepository, ModelMapper mapper) {
+                              ArticleRepository articleRepository, @Autowired ModelMapper modelMapper) {
         this.articleRepository = articleRepository;
-        this.modelMapper = mapper;
+        this.modelMapper = modelMapper;
         this.blackListedWords = blackListedWords;
     }
 
