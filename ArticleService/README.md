@@ -9,6 +9,7 @@
 * H2 in memory database
 * Docker containers (spring-boot app and postgres)
 * Global Exception handling with @RestControllerAdvice
+* Redis cache layer
 
 
 ## SQL 

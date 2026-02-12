@@ -46,6 +46,11 @@ services:
     # Wait for the DB to be ready before starting the app (optional, but recommended)
     command: ["sh", "-c", "sleep 10 && java -jar app.jar"]
 
+  redis:
+    image: redis:8.4.0
+    ports:
+      - "6379:6379"
+
 networks:
   article-network:
     driver: bridge

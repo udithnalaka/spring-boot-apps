@@ -9,7 +9,7 @@ public interface ArticleService {
 
     ArticleDTO getArticleById(Long id);
     List<ArticleDTO> getArticleByTitle(String title);
-    Long saveArticle(ArticleDTO articleDTO);
+    ArticleDTO saveArticle(ArticleDTO articleDTO);
     Long updateArticle(Long id, ArticleDTO articleDTO);
     void deleteArticle(Long id) throws ArticleNotFoundException;
 

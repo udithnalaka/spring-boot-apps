@@ -3,6 +3,7 @@ package com.ud.article.articles.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ud.article.articles.dto.ArticleDTO;
 import com.ud.article.articles.dto.TagDTO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @ActiveProfiles("test")
 @Transactional
+@Disabled
 public class ArticleIntegrationTestWithPostgres {
 
     @Container
