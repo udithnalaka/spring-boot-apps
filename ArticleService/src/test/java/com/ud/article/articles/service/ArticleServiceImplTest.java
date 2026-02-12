@@ -135,9 +135,9 @@ public class ArticleServiceImplTest {
 
         when(articleRepository.save(any(Article.class))).thenReturn(savedArticle);
 
-        Long newArticleId = articleServiceImpl.saveArticle(articleDto);
+        ArticleDTO newArticleDto = articleServiceImpl.saveArticle(articleDto);
 
-        assertEquals(3L, newArticleId);
+        assertEquals(3L, newArticleDto.getId());
 
         verify(articleRepository).save(newArticle);
 

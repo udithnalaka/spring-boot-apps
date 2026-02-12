@@ -93,14 +93,14 @@ public class ArticleControllerTest {
     void saveArticleWithValidData() throws Exception {
 
         //Given
-        when(articleServiceImpl.saveArticle(any(ArticleDTO.class))).thenReturn(1L);
+        when(articleServiceImpl.saveArticle(any(ArticleDTO.class))).thenReturn(articleDTO);
 
         //When & Then
         mockMvc.perform(post("/api/v1/article/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(articleDTO)))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$").value(1));
+        .andExpect(jsonPath("$.id").value(1));
 
         verify(articleServiceImpl).saveArticle(articleDTO);
     }

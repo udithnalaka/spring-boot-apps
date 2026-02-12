@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
         this.blackListedWords = blackListedWords;
     }
 
+    @Cacheable(value = "ARTICLE_CACHE", key = "#result.id()")
     public ArticleDTO getArticleById(Long id) {
 
         log.info("get Article by ID: {}", id);
@@ -59,8 +63,9 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
     }
 
+    @CachePut(value = "ARTICLE_CACHE", key = "#result.id()")
     @Transactional(Transactional.TxType.REQUIRED)
-    public Long saveArticle(ArticleDTO articleDTO) {
+    public ArticleDTO saveArticle(ArticleDTO articleDTO) {
 
         //validation check
         checkForbiddenWords(articleDTO);
@@ -80,7 +85,7 @@ public class ArticleServiceImpl implements ArticleService {
 
             Article savedArticle = articleRepository.save(newArticle);
             log.info("Article saved to database. Article ID: {}", savedArticle.getId());
-            return savedArticle.getId();
+            return modelMapper.map(savedArticle, ArticleDTO.class);
 
         } catch (Exception e) {
             log.error("Error when saving to database. ", e);
@@ -122,6 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     }
 
+    @CacheEvict(value = "ARTICLE_CACHE", key = "#id")
     public void deleteArticle(Long id) throws ArticleNotFoundException {
         log.info("deleting Article ID: {}", id);
 

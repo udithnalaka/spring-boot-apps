@@ -39,7 +39,7 @@ public class ArticleController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Long> saveArticle(@RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity<ArticleDTO> saveArticle(@RequestBody ArticleDTO articleDTO) {
         log.info("Article DTO: {}", articleDTO);
 
         return ResponseEntity.ok(articleService.saveArticle(articleDTO));
