@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: articles-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: articledb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      #- ./src/main/resources/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - article-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: article-service-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DATABASE_URL: jdbc:postgresql://postgres:5432/articledb
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      JAVA_OPTS: -Xmx512m -Xms256m
+    depends_on:
+      # Ensures the database container starts before the application container
+      postgres:
+        condition: service_healthy
+    networks:
+      - article-network
+
+    # Wait for the DB to be ready before starting the app (optional, but recommended)
+    command: ["sh", "-c", "sleep 10 && java -jar app.jar"]
+
+networks:
+  article-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
