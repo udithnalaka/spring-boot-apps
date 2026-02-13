@@ -5,11 +5,14 @@
 * SpringBoot 3.5.0
 * Java 21
 * Junit5 / Mockito
+* Integration tests with TestContainers
 * Spring JPA
 * H2 in memory database
-* Docker containers (spring-boot app and postgres)
+* Docker containers (spring-boot app, postgres and redis)
 * Global Exception handling with @RestControllerAdvice
 * Redis cache layer
+* Security - Auth0/ JWT - TODO
+* Swagger documentation - TODO
 
 
 ## SQL 
