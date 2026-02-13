@@ -12,7 +12,7 @@
 * Global Exception handling with @RestControllerAdvice
 * Redis cache layer
 * Security - Auth0/ JWT - TODO
-* Swagger documentation - TODO
+* Swagger documentation
 
 
 ## SQL 
@@ -99,6 +99,24 @@ log into h2 console to verify. url: http://localhost:8080/h2-console/
 ![img_4.png](img_4.png)
 
 
+## Swagger Documentation
 
+* add the following dependency to the pom.xml
+
+        <dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.8.15</version>
+		</dependency>
+
+* create the SwaggerConfig class with the OpenAPI information.
+
+* Annotate the Controller with the relavent annotation.
+
+And, thats it, Just run the application and navigate to
+
+    http://localhost:8080/swagger-ui/index.html
+
+![alt text](image.png)
 
 
