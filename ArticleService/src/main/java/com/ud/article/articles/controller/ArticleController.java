@@ -2,6 +2,13 @@ package com.ud.article.articles.controller;
 
 import com.ud.article.articles.dto.ArticleDTO;
 import com.ud.article.articles.service.ArticleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +24,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/article")
+@Tag(name = "Article Management", description = "APIs for managing articles")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -25,28 +33,58 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
+    @Operation(summary = "Get article by ID", description = "Retrieve a specific article by its unique identifier")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article found successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ArticleDTO.class))),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
+    })
     @GetMapping("/{articleId}")
-    public ResponseEntity<ArticleDTO> getArticleById(@PathVariable Long articleId) {
+    public ResponseEntity<ArticleDTO> getArticleById(
+            @Parameter(description = "ID of the article to retrieve", required = true)
+            @PathVariable Long articleId) {
         log.info("Article ID: {}", articleId);
         return ResponseEntity.ok(articleService.getArticleById(articleId));
     }
 
+    @Operation(summary = "Get articles by title", description = "Search for articles by title")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Articles retrieved successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ArticleDTO.class)))
+    })
     @GetMapping("/title/{title}")
-    public ResponseEntity<List<ArticleDTO>> getArticlesByTitle(@PathVariable String title) {
+    public ResponseEntity<List<ArticleDTO>> getArticlesByTitle(
+            @Parameter(description = "Title of the article to search", required = true)
+            @PathVariable String title) {
         log.info("Article Title: {}", title);
 
         return ResponseEntity.ok(articleService.getArticleByTitle(title));
     }
 
+    @Operation(summary = "Create a new article", description = "Save a new article to the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article created successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ArticleDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
+    })
     @PostMapping("/")
-    public ResponseEntity<ArticleDTO> saveArticle(@RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity<ArticleDTO> saveArticle(
+            @Parameter(description = "Article data to be created", required = true)
+            @RequestBody ArticleDTO articleDTO) {
         log.info("Article DTO: {}", articleDTO);
 
         return ResponseEntity.ok(articleService.saveArticle(articleDTO));
     }
 
+    @Operation(summary = "Delete article by ID", description = "Remove an article from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Article deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
+    })
     @DeleteMapping("/{articleId}")
-    public void deleteArticleById(@PathVariable Long articleId) {
+    public void deleteArticleById(
+            @Parameter(description = "ID of the article to delete", required = true)
+            @PathVariable Long articleId) {
         log.info("Article ID: {}", articleId);
 
         articleService.deleteArticle(articleId);
