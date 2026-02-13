@@ -37,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
         this.blackListedWords = blackListedWords;
     }
 
-    @Cacheable(value = "ARTICLE_CACHE", key = "#result.id()")
+    @Cacheable(value = "ARTICLE_CACHE", key = "#result.id")
     public ArticleDTO getArticleById(Long id) {
 
         log.info("get Article by ID: {}", id);
@@ -63,7 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .collect(Collectors.toList());
     }
 
-    @CachePut(value = "ARTICLE_CACHE", key = "#result.id()")
+    @CachePut(value = "ARTICLE_CACHE", key = "#result.id")
     @Transactional(Transactional.TxType.REQUIRED)
     public ArticleDTO saveArticle(ArticleDTO articleDTO) {
 

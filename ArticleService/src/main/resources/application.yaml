@@ -2,8 +2,8 @@ spring:
   application:
     name: ArticleService
   datasource:
-    #url: ${DATABASE_URL:jdbc:postgresql://postgres:5432/articledb} #use this when running the app as a docker container.
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/articledb}
+    url: ${DATABASE_URL:jdbc:postgresql://postgres:5432/articledb} #use this when running the app as a docker container.
+    #url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/articledb}
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -16,7 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
   cache:
     type: redis
