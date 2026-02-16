@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,9 +38,12 @@ public class ArticleController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article found successfully",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ArticleDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
     })
     @GetMapping("/{articleId}")
+    @PreAuthorize("hasAuthority('SCOPE_readarticle')")
     public ResponseEntity<ArticleDTO> getArticleById(
             @Parameter(description = "ID of the article to retrieve", required = true)
             @PathVariable Long articleId) {
@@ -65,9 +69,12 @@ public class ArticleController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article created successfully",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ArticleDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
+            @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
     })
     @PostMapping("/")
+    @PreAuthorize("hasAuthority('SCOPE_createarticle')")
     public ResponseEntity<ArticleDTO> saveArticle(
             @Parameter(description = "Article data to be created", required = true)
             @RequestBody ArticleDTO articleDTO) {
@@ -79,9 +86,12 @@ public class ArticleController {
     @Operation(summary = "Delete article by ID", description = "Remove an article from the database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Article deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Article not found", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
     })
     @DeleteMapping("/{articleId}")
+    @PreAuthorize("hasAuthority('SCOPE_deletearticle')")
     public void deleteArticleById(
             @Parameter(description = "ID of the article to delete", required = true)
             @PathVariable Long articleId) {

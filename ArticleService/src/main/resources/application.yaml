@@ -20,6 +20,12 @@ spring:
       port: 6379
   cache:
     type: redis
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-udith-nalaka.au.auth0.com/
+          audiences: https//article-service-api
 
 
 logging:
