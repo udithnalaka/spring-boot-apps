@@ -11,7 +11,7 @@
 * Docker containers (spring-boot app, postgres and redis)
 * Global Exception handling with @RestControllerAdvice
 * Redis cache layer
-* Security - Auth0/ JWT - TODO
+* Security - Auth0/ JWT
 * Swagger documentation
 
 
@@ -119,4 +119,30 @@ And, thats it, Just run the application and navigate to
 
 ![alt text](image.png)
 
+## Auth0/ JWT Authentication
+
+* Auth0.com - API and Application created in Auth0 dev tenant with
+  * scopes: readarticle, deletearticle, createarticle
+  * audience: https//article-service-api
+  
+* below dependencies added for security
+
+      spring-boot-starter-security    
+      spring-boot-starter-oauth2-resource-server
+
+* application.yml changes
+
+      spring:  
+        security:
+          oauth2:
+            resourceserver:
+              jwt:
+                issuer-uri: https://dev-udith-nalaka.au.auth0.com/
+                audiences: https//article-service-api
+
+* SecurityFilterChain configured (@Bean) to bypass authenticating the swagger url's  and to validate the JWT token with AUDIENCE.
+
+* method level secutiy enabled to Authorize the method calls using SCOPES
+
+      @PreAuthorize("hasAuthority('SCOPE_readarticle')")
 
