@@ -13,6 +13,7 @@
 * Redis cache layer
 * Security - Auth0/ JWT
 * Swagger documentation
+* Deploying to AWS (to AWS ECR)
 
 
 ## SQL 
@@ -146,3 +147,35 @@ And, thats it, Just run the application and navigate to
 
       @PreAuthorize("hasAuthority('SCOPE_readarticle')")
 
+## Deploying to AWS
+
+Assumptions:
+* docker image created locally for you application.
+
+      docker build -t <your-spring-boot-app> .
+
+* Aws account is available and a IAM user is created with Access keys.
+* Access keys inserted into aws config in local machine, so we can run the aws service commands from local machine.
+
+### getting access to ECR and pushing a image from local machine to AWS ECR using a profile
+
+1)  getting access to ECR (need to setup the aws config with a profile.)
+
+        aws ecr get-login-password --region ap-southeast-2 --profile <your-aws-profile> | docker login --username AWS --password-stdin <aws-account-id>.dkr.ecr.ap-southeast-2.amazonaws.com
+
+2) create a repository in AWS ECR to hold the image
+
+       aws ecr create-repository --repository-name spring-boot/article-service-app --region ap-southeast-2 --profile <your-aws-profile>
+
+3) tag the image
+
+       docker tag articleservice-app:latest <aws-account-id>.dkr.ecr.ap-southeast-2.amazonaws.com/spring-boot/article-service-app
+
+4) push image to ECR
+
+       docker push <aws-account-id>.dkr.ecr.ap-southeast-2.amazonaws.com/spring-boot/article-service-app:latest
+
+  Once image is pushed to ECR, it should be visible in AWS ECR console
+
+  ![img_5.png](img_5.png)
+  
