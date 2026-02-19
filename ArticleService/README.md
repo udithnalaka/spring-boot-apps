@@ -2,6 +2,11 @@
 
 ## SpringBoot Application - Article Service
 
+This application was initially created to address the codelity test requirement. Gradually added several technologies to 
+the application to create a full end to end production grade micro service API.
+
+Below are the tools, frameworks used in this application. 
+
 * SpringBoot 3.5.0
 * Java 21
 * Junit5 / Mockito
@@ -13,6 +18,7 @@
 * Redis cache layer
 * Security - Auth0/ JWT
 * Swagger documentation
+* Postman  - functional test endpoints 
 * Deploying to AWS (to AWS ECR)
 
 
