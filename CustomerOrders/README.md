@@ -1,5 +1,8 @@
 # Customer Order Service
 
+A simple spring application created mainly to refresh about table indexes and using Hibernate/JPA annotation
+for creating the indexes and using Flyway to auto populate the database on app startup.
+
 ### Technologies used
 
 * SpringBoot 3.5
