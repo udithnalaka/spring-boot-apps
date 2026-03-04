@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: ClientOrderService
+server:
+  port: 8081
+
+app:
+  rest-client: # these config params are used when RestClient does an external call to another service.
+    connect-timeout: 2s
+    response-timeout: 5s
+    connection-pool:
+      max-total: 200
+      max-per-route: 50
+      idle-evict-timeout: 30s
+    services:
+      order-service:
+        base-url: http://localhost:8080/orders/
+
