@@ -4,6 +4,38 @@ spring:
 server:
   port: 8081
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+
+logging:
+  level:
+    io.github.resilience4j.circuitbreaker: DEBUG
+
+
+resilience4j: # resilience4j tuning for the application
+  circuitbreaker:
+    instances:
+      orderService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+
+  retry:
+    instances:
+      orderService:
+        maxAttempts: 2
+        waitDuration: 500ms
+
+  timelimiter:
+    instances:
+      orderService:
+        timeoutDuration: 3s
+
 app:
   rest-client: # these config params are used when RestClient does an external call to another service.
     connect-timeout: 2s
