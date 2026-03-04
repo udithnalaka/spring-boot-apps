@@ -28,9 +28,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
      * @return List<OrderDto>  of Orders for the customer
      * </pre>
      */
-    @CircuitBreaker(name = "order-service", fallbackMethod = "fallBack")
-    @Retry(name = "order-service")
-    @TimeLimiter(name = "order-service")
+    @CircuitBreaker(name = "orderService", fallbackMethod = "fallBack")
+    @Retry(name = "orderService")
+    @TimeLimiter(name = "orderService")
     public CompletableFuture<List<OrderDto>> getOrderForCustomer() {
 
         long customerId = 1;

@@ -42,7 +42,12 @@ A simple spring application to act as the client service to call another REST se
     ![img_3.png](img_3.png)
 
 
-### Resilience4j tasks
+### Resilience4j configuration
 
- TODO
+ 1) application.yml: below configuration is for resilience4j setup
 
+    ![img_5.png](img_5.png)
+
+ 2) Service class (ClientOrderServiceImpl)
+
+   ![img_7.png](img_7.png)
