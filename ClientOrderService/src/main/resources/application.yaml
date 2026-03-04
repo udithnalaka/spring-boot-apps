@@ -8,7 +8,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,metrics
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
 
 logging:
   level:
@@ -19,11 +25,14 @@ resilience4j: # resilience4j tuning for the application
   circuitbreaker:
     instances:
       orderService:
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 10s
-        permittedNumberOfCallsInHalfOpenState: 3
+        register-health-indicator: true
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state:
+          seconds: 50
 
   retry:
     instances:
