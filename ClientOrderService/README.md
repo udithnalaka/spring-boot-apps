@@ -50,4 +50,22 @@ A simple spring application to act as the client service to call another REST se
 
  2) Service class (ClientOrderServiceImpl)
 
-   ![img_7.png](img_7.png)
+    ![img_7.png](img_7.png)
+
+### Test scenarios
+
+   * **Scenario 1**: downstream system is down
+
+
+   When the downstream system is unavailable, the circuit braker should be called according to the configured values.
+   The fallback method will be called and a response will be sent accordingly.
+
+   ![img_8.png](img_8.png)
+
+   Error in logs
+
+    2026-03-04T21:55:59.669+10:00 DEBUG 30800 --- [ClientOrderService] [onPool-worker-1] i.g.r.c.i.CircuitBreakerStateMachine     
+    : Event ERROR published: 2026-03-04T21:55:59.669999400+10:00[Australia/]: CircuitBreaker 'orderService' recorded an error: 
+    'org.springframework.web.client.ResourceAccessException: I/O error on GET request for "http://localhost:8080/orders/customer/1": 
+    Connect to http://localhost:8080 failed: Connection refused: getsockopt'. Elapsed time: 141 ms
+

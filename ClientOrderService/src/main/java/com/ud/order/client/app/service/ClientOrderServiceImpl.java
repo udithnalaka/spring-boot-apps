@@ -41,13 +41,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
                         .retrieve()
                         .body(new ParameterizedTypeReference<List<OrderDto>>() {}));
 
-        /*return orderServiceClient.get()
-                .uri("customer/".concat(String.valueOf(customerId)))
-                .retrieve()
-                .body(new ParameterizedTypeReference<List<OrderDto>>() {});*/
     }
 
-    public String fallBack(Throwable ex) {
-        return "Resilience4j: Fallback response: Order Service unavailable in port 8080.";
+    public CompletableFuture<String> fallBack(Throwable ex) {
+        return CompletableFuture.completedFuture("Fallback response: Downstream service not available. Please try later.");
     }
 }
